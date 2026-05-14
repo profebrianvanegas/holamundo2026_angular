@@ -1,59 +1,50 @@
 # Holamundo2026
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.6.
+Este proyecto es utilizado en las **Clases de Programación III** del 3er año de la **Tecnicatura en Análisis y Desarrollo de Software** para explicar y aprender los fundamentos de Angular.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Guía de Inicio
 
-```bash
-ng serve
-```
+Sigue estos pasos para obtener una copia local del proyecto y ponerlo en funcionamiento.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 1. Clonar el repositorio
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Abre una terminal y ejecuta el siguiente comando:
 
 ```bash
-ng generate component component-name
+git clone https://github.com/profebrianvanegas/holamundo2026_angular.git
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Luego, entra en la carpeta del proyecto:
 
 ```bash
-ng generate --help
+cd holamundo2026
 ```
 
-## Building
+### 2. Instalar dependencias
 
-To build the project run:
+Asegúrate de tener instalado [Node.js](https://nodejs.org/) y luego ejecuta:
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 3. Ejecutar el proyecto
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Para iniciar el servidor de desarrollo y abrir la aplicación automáticamente en tu navegador, ejecuta:
 
 ```bash
-ng test
+ng serve --open
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+O la versión abreviada:
 
 ```bash
-ng e2e
+ng s -o
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Una vez que el servidor esté corriendo, la aplicación estará disponible en `http://localhost:4200/`.
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+Generado para el curso de Programación III.
