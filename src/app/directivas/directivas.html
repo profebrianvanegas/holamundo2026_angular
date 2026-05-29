@@ -1,0 +1,15 @@
+<div class="px-25">
+    <h1 class="mt-4 mb-5 text-center font-bold text-3xl">Directivas Estructurales</h1>
+
+    <h2 class="mb-4">Directiva NgIF</h2>
+    <button class="mb-2 bg-blue-800 border p-3 rounded-2xl text-white hover:bg-blue-400"
+        (click)="isLoggen= !isLoggen">Login</button>
+
+    @if (isLoggen) {
+    <p>Bienvenido {{nombre}}</p>
+    } @else {
+    <p>Por favor, inice sesion</p>
+    }
+
+    <pre class="mt-5">Valor de isLoggen: <span class="font-black">{{isLoggen}}</span></pre>
+</div>
