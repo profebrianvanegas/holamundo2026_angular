@@ -7,11 +7,11 @@
             <div class="flex items-center gap-4">
                 <div class="text-sm text-gray-600">
                     <div class="text-xs text-gray-500">Cantidad</div>
-                    <div id="cart-count" class="text-lg font-medium text-gray-900">0</div>
+                    <div id="cart-count" class="text-lg font-medium text-gray-900">{{cantidad()}}</div>
                 </div>
                 <div class="text-sm text-gray-600">
                     <div class="text-xs text-gray-500">Total</div>
-                    <div id="cart-total" class="text-lg font-medium text-gray-900">$0.00</div>
+                    <div id="cart-total" class="text-lg font-medium text-gray-900">${{total()}}</div>
                 </div>
             </div>
         </header>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="mt-4 flex items-center justify-between">
                         <div class="text-lg font-semibold text-gray-900">$1500</div>
-                        <button
+                        <button (click)="sumarAlCarrito()"
                             class="add-btn inline-flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded"
                             data-name="Camiseta clásica" data-price="19.99">
                             Añadir al carrito

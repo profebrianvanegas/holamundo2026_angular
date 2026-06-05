@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { CardProducto } from "../card-producto/card-producto";
 
 @Component({
   selector: 'app-catalogo',
-  imports: [],
+  imports: [CardProducto],
   templateUrl: './catalogo.html',
 })
 export class Catalogo {
