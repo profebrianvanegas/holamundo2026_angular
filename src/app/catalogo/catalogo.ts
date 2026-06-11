@@ -7,6 +7,10 @@ import { CardProducto } from "../card-producto/card-producto";
   templateUrl: './catalogo.html',
 })
 export class Catalogo {
+  
+  agregarAlCarrito(precio: any){
+    console.log(precio);
+  }
 
   // Datos que luego vendrán de la API de Laravel
   productos = [
