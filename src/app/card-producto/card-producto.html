@@ -5,13 +5,43 @@
     <p class="text-gray-600 font-mono">${{producto().precio}}</p>
 
     @if(producto().stock > 0){
-    <span class="text-green-500 text-sm font-bold">Disponible: 5</span>
+    <span class="text-green-500 text-sm font-bold">Disponible: {{producto().stock}}</span>
     }@else {
     <span class="text-red-500 text-sm font-bold">Sin Stock</span>
     }
 
     <button class="w-full mt-4 bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
-        (click)="agregarAlCarrito(producto())"
+        (click)="agregarAlCarrito()"
+        [class.bg-red-500]="producto().stock === 0">
+        
+        {{producto().stock > 0 ? 'Agregar al carrito' : 'Agotado'}}
+    </button>
+</div><!-- ========== COMPONENTE HIJO: Card de Producto ========== -->
+<!-- Este componente recibe un producto del padre y lo muestra -->
+<!-- Usa signals: producto() para acceder al valor reactivo -->
+
+<div class="bg-white p-4 rounded-lg shadow hover:shadow-xl transition-shadow">
+    <!-- Accedemos al producto con () porque es un signal -->
+    <img src="{{producto().imagen}}" alt="{{producto().nombre}}" class="w-full h-40 object-cover rounded">
+    
+    <h3 class="mt-4 text-xl font-bold">{{producto().nombre}}</h3>
+    <p class="text-gray-600 font-mono">${{producto().precio}}</p>
+
+    <!-- Control condicional con @if - Stock disponible -->
+    @if(producto().stock > 0){
+    <span class="text-green-500 text-sm font-bold">Disponible: {{producto().stock}}</span>
+    }@else {
+    <span class="text-red-500 text-sm font-bold">Sin Stock</span>
+    }
+
+    <!-- 
+      Botón que emite evento al padre:
+      - (click) ejecuta el método del componente hijo
+      - El método hijo emite el evento agregarCarrito
+      - El padre escucha con (agregarCarrito)="sumarAlCarrito($event)"
+    -->
+    <button class="w-full mt-4 bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
+        (click)="agregarAlCarrito()"
         [class.bg-red-500]="producto().stock === 0">
         
         {{producto().stock > 0 ? 'Agregar al carrito' : 'Agotado'}}

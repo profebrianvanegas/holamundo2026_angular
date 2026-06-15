@@ -2,13 +2,56 @@
 <pre>Consigna N°2: Crear un componente para la Card de un producto y manejar su estado con Signals</pre>
 
 
+<!-- ========== COMPONENTE PADRE: Catálogo ========== -->
+<!-- Este componente contiene:
+     1. El listado de productos (se renderiza con @for)
+     2. El carrito de compras (muestra cantidad y total)
+-->
+
 <main class="container mx-auto flex flex-col p-6">
 
-    <h2 class="text-2xl font-semibold mb-6 text-gray-800">Catálogo</h2>
+    <!-- Header con título y carrito -->
+    <div class="flex justify-between mx-5">
+        <h2 class="text-2xl font-semibold mb-6 text-gray-800">Catálogo</h2>
 
+        <!-- ========== SECCIÓN CARRITO ========== -->
+        <!-- Los valores cantidad() y total() se actualizan automáticamente 
+             gracias a los signals de Angular -->
+        <div class="flex flex-col mb-6 py-4 px-20 border rounded-3xl border-gray-400">
+            <h1 class="text-xl font-semibold text-gray-800 mb-1">Carrito</h1>
+            <div class="flex items-center gap-4">
+                <div class="text-sm text-gray-600">
+                    <div class="text-xs text-gray-500">Cantidad</div>
+                    <!-- LLamamos al signal con () para obtener su valor -->
+                    <div id="cart-count" class="text-lg font-medium text-gray-900">{{cantidad()}}</div>
+                </div>
+                <div class="text-sm text-gray-600">
+                    <div class="text-xs text-gray-500">Total</div>
+                    <div id="cart-total" class="text-lg font-medium text-gray-900">${{total()}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========== GRILLA DE PRODUCTOS ========== -->
+    <!-- @for es el nuevo control de flujo de Angular
+         - producto: variable local del bucle
+         - productos(): llama al signal para obtener el array
+         - track producto.id: optimiza el renderizado usando el id como clave única
+    -->
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        @for(producto of productos; track producto.id){
-        <app-card-producto [producto]="producto" (agregarCarrito)="agregarAlCarrito($event)"></app-card-producto>
+        @for(producto of productos(); track producto.id){
+        <!-- 
+          Passing data con property binding [producto]:
+            - El padre pasa cada producto al componente hijo
+            - El hijo lo recibe con input.required<Producto>()
+          
+          Escuchando eventos (agregarCarrito):
+            - El hijo emite un evento con el producto
+            - El padre ejecuta sumarAlCarrito($event)
+        -->
+        <app-card-producto [producto]="producto" (agregarCarrito)="sumarAlCarrito($event)"></app-card-producto>
         }
     </div>
 </main>

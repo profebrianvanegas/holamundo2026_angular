@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { CardProducto } from "../card-producto/card-producto";
+import { Producto } from '../models/producto.model';
 
 @Component({
   selector: 'app-catalogo',
@@ -7,16 +8,60 @@ import { CardProducto } from "../card-producto/card-producto";
   templateUrl: './catalogo.html',
 })
 export class Catalogo {
-  
-  agregarAlCarrito(precio: any){
-    console.log(precio);
+  // ========== SIGNALS DEL CARRITO ==========
+  // Un signal es un valor que Angular vigila automáticamente
+  // Cuando cambia, Angular actualiza la vista automáticamente
+
+  // Signal para la cantidad de productos en el carrito
+  cantidad = signal<number>(0);
+
+  // Signal para el total price del carrito
+  total = signal<number>(0);
+
+  /**
+   * Método que se ejecuta cuando el hijo (CardProducto) emite el evento
+   * @param producto - El producto que el usuario quiere agregar al carrito
+   */
+  sumarAlCarrito(producto: Producto): void {
+    // Verifico stock disponible
+    if (producto.stock <= 0) {
+      alert('No hay stock disponible');
+      return;
+    }
+
+    // Actualizo el stock del producto específico
+    // .update() permite modificar el valor actual del signal
+    // Recorremos el array y disminuimos el stock del producto seleccionado
+    this.productos.update(productos =>
+      productos.map(p =>
+        p.id === producto.id
+          ? { ...p, stock: p.stock - 1 }  // Creamos nuevo objeto con stock reducido
+          : p
+      )
+    );
+
+    // Actualizo cantidad total
+    // .update() toma el valor actual y lo modifica
+    this.cantidad.update(val => val + 1);
+
+    //Actualizo el Total del Carrito
+    // Sumamos el precio del producto al total anterior
+    this.total.update(val => val + producto.precio);
   }
 
+
+  // ========== DATOS DEL CATÁLOGO ==========
   // Datos que luego vendrán de la API de Laravel
-  productos = [
+  // Cambio el array a signal para poder reactualizarlo (UPDATE)
+
+  // Signal que contiene el array de productos
+  // Al ser signal, cuando se modifica, la vista se actualiza automáticamente
+  productos = signal<Producto[]>([
     { id: 1, nombre: "Laptop Pro 15", precio: 1200, stock: 5, imagen: "https://media.istockphoto.com/id/1954422116/photo/a-laptop-with-a-blank-screen-sits-on-a-stylish-wooden-desk-within-a-loft-style-interior-with.jpg?s=1024x1024&w=is&k=20&c=qQ3gVzlUAb8olbS6tx9XGmsZRHKyOTh6XdO_jsc9lPg=" },
-    { id: 2,   nombre: "Mouse Gamer RGB", precio: 45, stock: 0, imagen: "https://cdn.pixabay.com/photo/2015/03/12/11/22/mouse-670002_1280.jpg" },
+    { id: 2, nombre: "Mouse Gamer RGB", precio: 45, stock: 0, imagen: "https://cdn.pixabay.com/photo/2015/03/12/11/22/mouse-670002_1280.jpg" },
     { id: 3, nombre: "Monitor 4K 27\"", precio: 350, stock: 8, imagen: "https://media.istockphoto.com/id/1412872705/photo/video-on-demand-menu-on-tv.jpg?s=1024x1024&w=is&k=20&c=ENB1pmX_h7oXnvgFR4EsCB_ADl-WnMXaDmdE8iGsUR4=" },
     { id: 4, nombre: "Teclado Mecánico", precio: 80, stock: 12, imagen: "https://cdn.pixabay.com/photo/2024/10/30/10/53/ai-generated-9161446_1280.jpg" }
-  ];
+  ]);
 }
+
+
